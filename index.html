@@ -1,108 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Game</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Play chess locally or invite a friend to a private realtime game.">
+  <title>Chess — Play online with a friend</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div id="game">
-        <!-- row eight -->
-        <div class="cellprefix">8</div>
-        <div class="gamecell" id="1_8"></div>
-        <div class="gamecell grey" id="2_8"></div>
-        <div class="gamecell" id="3_8"></div>
-        <div class="gamecell grey" id="4_8"></div>
-        <div class="gamecell" id="5_8"></div>
-        <div class="gamecell grey" id="6_8"></div>
-        <div class="gamecell" id="7_8"></div>
-        <div class="gamecell grey" id="8_8"></div>
-        <!-- row seven -->
-        <div class="cellprefix">7</div>
-        <div class="gamecell grey" id="1_7"></div>
-        <div class="gamecell" id="2_7"></div>
-        <div class="gamecell grey" id="3_7"></div>
-        <div class="gamecell" id="4_7"></div>
-        <div class="gamecell grey" id="5_7"></div>
-        <div class="gamecell" id="6_7"></div>
-        <div class="gamecell grey" id="7_7"></div>
-        <div class="gamecell" id="8_7"></div>
-        <!-- row six -->
-        <div class="cellprefix">6</div>
-        <div class="gamecell" id="1_6"></div>
-        <div class="gamecell grey" id="2_6"></div>
-        <div class="gamecell" id="3_6"></div>
-        <div class="gamecell grey" id="4_6"></div>
-        <div class="gamecell" id="5_6"></div>
-        <div class="gamecell grey" id="6_6"></div>
-        <div class="gamecell" id="7_6"></div>
-        <div class="gamecell grey" id="8_6"></div>
-        <!-- row five -->
-        <div class="cellprefix">5</div>
-        <div class="gamecell grey" id="1_5"></div>
-        <div class="gamecell" id="2_5"></div>
-        <div class="gamecell grey" id="3_5"></div>
-        <div class="gamecell" id="4_5"></div>
-        <div class="gamecell grey" id="5_5"></div>
-        <div class="gamecell" id="6_5"></div>
-        <div class="gamecell grey" id="7_5"></div>
-        <div class="gamecell" id="8_5"></div>
-        <!-- row four -->
-        <div class="cellprefix">4</div>
-        <div class="gamecell" id="1_4"></div>
-        <div class="gamecell grey" id="2_4"></div>
-        <div class="gamecell" id="3_4"></div>
-        <div class="gamecell grey" id="4_4"></div>
-        <div class="gamecell" id="5_4"></div>
-        <div class="gamecell grey" id="6_4"></div>
-        <div class="gamecell" id="7_4"></div>
-        <div class="gamecell grey" id="8_4"></div>
-        <!-- row three -->
-        <div class="cellprefix">3</div>
-        <div class="gamecell grey" id="1_3"></div>
-        <div class="gamecell" id="2_3"></div>
-        <div class="gamecell grey" id="3_3"></div>
-        <div class="gamecell" id="4_3"></div>
-        <div class="gamecell grey" id="5_3"></div>
-        <div class="gamecell" id="6_3"></div>
-        <div class="gamecell grey" id="7_3"></div>
-        <div class="gamecell" id="8_3"></div>
-        <!-- row two -->
-        <div class="cellprefix">2</div>
-        <div class="gamecell" id="1_2"></div>
-        <div class="gamecell grey" id="2_2"></div>
-        <div class="gamecell" id="3_2"></div>
-        <div class="gamecell grey" id="4_2"></div>
-        <div class="gamecell" id="5_2"></div>
-        <div class="gamecell grey" id="6_2"></div>
-        <div class="gamecell" id="7_2"></div>
-        <div class="gamecell grey" id="8_2"></div>
-        <!-- row one -->
-        <div class="cellprefix">1</div>
-        <div class="gamecell grey" id="1_1"></div>
-        <div class="gamecell" id="2_1"></div>
-        <div class="gamecell grey" id="3_1"></div>
-        <div class="gamecell" id="4_1"></div>
-        <div class="gamecell grey" id="5_1"></div>
-        <div class="gamecell" id="6_1"></div>
-        <div class="gamecell grey" id="7_1"></div>
-        <div class="gamecell" id="8_1"></div>
-        <div class="cellprefix"></div>
-        <div class="cellprefix">a</div>
-        <div class="cellprefix">b</div>
-        <div class="cellprefix">c</div>
-        <div class="cellprefix">d</div>
-        <div class="cellprefix">e</div>
-        <div class="cellprefix">f</div>
-        <div class="cellprefix">g</div>
-        <div class="cellprefix">h</div>
-        <div id="turn">It's White's Turn</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand-button" id="home-button" type="button" aria-label="Return to Chess home">
+        <span class="brand-mark" aria-hidden="true">♞</span>
+        <span>CHESS</span>
+      </button>
+      <div class="topbar-actions">
+        <span class="connection-pill" id="connection-pill" data-state="idle"><span class="status-dot" aria-hidden="true"></span><span id="connection-pill-label">Local play</span></span>
+        <button class="text-button" id="history-button" type="button">Game history</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="screen active" id="home-screen" aria-labelledby="home-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span>THE CLASSIC GAME</p>
+            <h1 id="home-title">Your next<br><em>move</em> awaits.</h1>
+            <p class="hero-description">A focused chess board for quiet practice, bold tactics, and games shared with someone anywhere.</p>
+            <div class="hero-actions">
+              <button class="primary-button" id="home-online-button" type="button"><span>Play online</span><span aria-hidden="true">↗</span></button>
+              <button class="secondary-button" id="home-local-button" type="button">Play locally</button>
+            </div>
+            <div class="feature-row" aria-label="Chess features">
+              <span><strong>01</strong>Private rooms</span>
+              <span><strong>02</strong>Live clocks</span>
+              <span><strong>03</strong>Full rules</span>
+            </div>
+          </div>
+          <div class="hero-board-card" aria-hidden="true">
+            <div class="hero-board-glow"></div>
+            <div class="mini-board" id="mini-board"></div>
+            <div class="hero-board-caption"><span>PLAY YOUR WAY</span><span>♜ 2026</span></div>
+          </div>
+        </div>
+        <div class="home-footer-note"><span class="accent-dot"></span> Create a room. Share the code. Make your move.</div>
+      </section>
+
+      <section class="screen" id="online-lobby-screen" aria-labelledby="online-title" hidden>
+        <div class="section-heading compact-heading">
+          <button class="back-button" data-back-home type="button" aria-label="Back to home">←</button>
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span>REALTIME PLAY</p>
+            <h2 id="online-title">Play online</h2>
+          </div>
+        </div>
+        <p class="section-intro">Invite a friend to a private game, or join one with a six-digit room code.</p>
+        <div class="online-choice-grid">
+          <article class="choice-card create-card">
+            <div class="card-icon" aria-hidden="true">＋</div>
+            <p class="card-kicker">START A NEW GAME</p>
+            <h3>Create a room</h3>
+            <p>Set the pace, choose your side, and send the invite to your opponent.</p>
+            <div class="field-group">
+              <label for="time-control">Time control</label>
+              <select id="time-control">
+                <option value="none">No clock</option>
+                <option value="1+0">1 + 0 · Bullet</option>
+                <option value="3+0">3 + 0 · Blitz</option>
+                <option value="3+2">3 + 2 · Blitz</option>
+                <option value="5+0">5 + 0 · Blitz</option>
+                <option value="5+3">5 + 3 · Blitz</option>
+                <option value="10+0">10 + 0 · Rapid</option>
+                <option value="10+5" selected>10 + 5 · Rapid</option>
+                <option value="15+10">15 + 10 · Classical</option>
+                <option value="30+0">30 + 0 · Classical</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="color-choice">Your color</label>
+              <select id="color-choice">
+                <option value="random" selected>Random</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+              </select>
+            </div>
+            <button class="primary-button full-width" id="create-room-button" type="button"><span>Create private room</span><span aria-hidden="true">→</span></button>
+          </article>
+          <article class="choice-card join-card">
+            <div class="card-icon outlined" aria-hidden="true">⌁</div>
+            <p class="card-kicker">HAVE AN INVITE?</p>
+            <h3>Join a room</h3>
+            <p>Enter the code your opponent shared with you. It is valid while the room is waiting.</p>
+            <div class="field-group code-field-group">
+              <label for="room-code-input">Room code</label>
+              <input id="room-code-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000 000" aria-describedby="room-code-hint">
+              <span class="field-hint" id="room-code-hint">Six digits, no spaces needed</span>
+            </div>
+            <button class="secondary-button full-width" id="join-room-button" type="button">Join private game</button>
+          </article>
+        </div>
+        <div class="secure-note"><span aria-hidden="true">●</span><span>Private by default. Your moves are validated by the game server.</span></div>
+      </section>
+
+      <section class="screen" id="waiting-screen" aria-labelledby="waiting-title" hidden>
+        <div class="waiting-layout">
+          <div class="waiting-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span>PRIVATE ROOM</p>
+            <h2 id="waiting-title">Ready when<br><em>they</em> are.</h2>
+            <p>Share this room code with your opponent. This room stays open for 15 minutes.</p>
+            <div class="waiting-status"><span class="pulse-dot" aria-hidden="true"></span><span id="waiting-status-label">Waiting for opponent</span></div>
+            <button class="text-button with-arrow" id="cancel-room-button" type="button">Cancel room <span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="room-code-card">
+            <p class="card-kicker">ROOM CODE</p>
+            <div class="room-code" id="room-code-display" aria-label="Room code">000000</div>
+            <div class="room-code-meta"><span id="room-settings-label">10 + 5 · Random color</span><span class="room-active-label"><span class="status-dot"></span>Room active</span></div>
+            <div class="room-actions">
+              <button class="secondary-button" id="copy-code-button" type="button">Copy code</button>
+              <button class="secondary-button" id="copy-link-button" type="button">Copy invite link</button>
+            </div>
+            <div class="share-helper">Your opponent can join from another device using this code.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen game-screen" id="game-screen" aria-labelledby="game-title" hidden>
+        <div class="game-header">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span><span id="game-mode-label">LOCAL GAME</span></p>
+            <h2 id="game-title">The board is yours.</h2>
+          </div>
+          <div class="game-header-actions">
+            <span class="game-room-label" id="game-room-label"></span>
+            <button class="text-button" id="leave-game-button" type="button">Exit game</button>
+          </div>
+        </div>
+        <div class="game-layout">
+          <div class="board-column">
+            <div class="player-strip opponent-strip" id="opponent-strip">
+              <div class="player-identity"><span class="avatar" id="opponent-avatar">♟</span><div><span class="player-label">OPPONENT</span><strong id="opponent-name">Black</strong></div></div>
+              <div class="clock" id="opponent-clock">—</div>
+            </div>
+            <div class="board-frame" id="game">
+              <div class="rank-labels" id="rank-labels" aria-hidden="true"></div>
+              <div class="board" id="board" role="grid" aria-label="Chess board"></div>
+              <div class="file-labels" id="file-labels" aria-hidden="true"></div>
+            </div>
+            <div class="player-strip you-strip" id="you-strip">
+              <div class="player-identity"><span class="avatar you-avatar" id="you-avatar">♙</span><div><span class="player-label">YOU</span><strong id="you-name">White</strong></div></div>
+              <div class="clock" id="you-clock">—</div>
+            </div>
+          </div>
+          <aside class="game-sidebar" aria-label="Game details">
+            <div class="turn-card" id="turn-card"><span class="turn-indicator" aria-hidden="true"></span><span id="turn-label">It's White's turn</span></div>
+            <div class="connection-card" id="opponent-connection-card"><span class="status-dot" aria-hidden="true"></span><span id="opponent-connection-label">Local game</span></div>
+            <div class="moves-card">
+              <div class="panel-heading"><span>Moves</span><span id="move-count">0</span></div>
+              <div class="move-list" id="move-list" aria-live="polite"><div class="empty-moves">Your opening move is waiting.</div></div>
+            </div>
+            <div class="controls-card" id="online-controls" hidden>
+              <button class="control-button" id="draw-button" type="button">Offer draw</button>
+              <button class="control-button" id="decline-draw-button" type="button" hidden>Decline</button>
+              <button class="control-button danger" id="resign-button" type="button">Resign</button>
+            </div>
+            <div class="controls-card" id="local-controls">
+              <button class="control-button" id="new-local-game-button" type="button">New local game</button>
+            </div>
+            <div class="controls-card replay-controls" id="replay-controls" hidden>
+              <button class="control-button" id="replay-first-button" type="button" aria-label="First move">|&lt;</button>
+              <button class="control-button" id="replay-prev-button" type="button" aria-label="Previous move">&lt;</button>
+              <button class="control-button" id="replay-next-button" type="button" aria-label="Next move">&gt;</button>
+              <button class="control-button" id="replay-last-button" type="button" aria-label="Last move">&gt;|</button>
+            </div>
+            <div class="server-note" id="server-note" hidden><span class="status-dot"></span><span>Server-authoritative game</span></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="screen" id="history-screen" aria-labelledby="history-title" hidden>
+        <div class="section-heading compact-heading">
+          <button class="back-button" data-back-home type="button" aria-label="Back to home">←</button>
+          <div><p class="eyebrow"><span class="eyebrow-line"></span>YOUR GAMES</p><h2 id="history-title">Game history</h2></div>
+        </div>
+        <p class="section-intro">Completed online games are saved here for replay. Your history is private to this session.</p>
+        <div class="history-list" id="history-list"><div class="loading-state">Loading your games…</div></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>Chess, made simple.</span><span>Private rooms · Realtime play · Full rules</span></footer>
+  </div>
+
+  <div class="modal-backdrop" id="promotion-modal" hidden>
+    <div class="promotion-modal" role="dialog" aria-modal="true" aria-labelledby="promotion-title">
+      <p class="card-kicker">LAST STEP</p>
+      <h2 id="promotion-title">Choose a promotion</h2>
+      <p>Your pawn reached the back rank. Pick a piece.</p>
+      <div class="promotion-options" id="promotion-options"></div>
     </div>
+  </div>
 
+  <div class="modal-backdrop" id="result-modal" hidden>
+    <div class="result-modal" role="dialog" aria-modal="true" aria-labelledby="result-title">
+      <span class="result-symbol" id="result-symbol" aria-hidden="true">✦</span>
+      <p class="card-kicker">GAME COMPLETE</p>
+      <h2 id="result-title">Game over</h2>
+      <p id="result-subtitle"></p>
+      <div class="result-actions"><button class="primary-button" id="rematch-button" type="button">Rematch <span aria-hidden="true">→</span></button><button class="secondary-button" id="result-exit-button" type="button">Back to home</button></div>
+    </div>
+  </div>
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script src="index.js"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="shared/chess-engine.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
